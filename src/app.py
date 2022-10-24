@@ -66,38 +66,31 @@ def delete_member(member_id):  #pongo un
     
     body = request.get_json()
     members = jackson_family.delete_member(member_id)
+    
+    response_body = {
+                "family": members
+            }
 
-    if member_id == id:
-        response_body = {
-                    "family": members
-                }
+    return jsonify(response_body), 200
 
-        return jsonify(response_body), 200
+    #     if member_id == id:
+    #     response_body = {
+    #                 "family": members
+    #             }
 
-    elif member_id != id:
-        response_body = {
-            "msg": "it does not exist, it cannot delet"
-        }
-        return jsonify(response_body), 400
+    #     return jsonify(response_body), 200
 
-    else: 
-        response_body = {
-            "msg": "Error of the Servidor 500"
-        }
-    return jsonify(response_body), 500
+    # elif member_id != id:
+    #     response_body = {
+    #         "msg": "it does not exist, it cannot delet"
+    #     }
+    #     return jsonify(response_body), 400
 
-
-#     if query_familiar is None:
-#         #guardar datos recibidos a la tabla Familiar
-
-
-
-
-#     response_body = {
-#             "msg": "existed familiar"
-#         }
-#     return jsonify(response_body), 400
-
+    # else: 
+    #     response_body = {
+    #         "msg": "Error of the Servidor 500"
+    #     }
+    #     return jsonify(response_body), 500
 
 @app.route('/members/<int:member_id>', methods=['GET'])
 def get_miembro(member_id):
@@ -105,12 +98,7 @@ def get_miembro(member_id):
     # this is how you can use the Family datastructure by calling its methods
     member = jackson_family.get_member(member_id)
 
-    # response_body = {
-    #     "hello": "member obtenido",
-    #     "family": members
-    # }
     return jsonify(member), 200
-
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
